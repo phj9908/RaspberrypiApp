@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import org.jsoup.nodes.Element;     // 파싱 할 때 필수
 import org.jsoup.select.Elements;   // 파싱 할 때 필수
 import org.jsoup.nodes.Document;    // 파싱 할 때 필수
 import org.w3c.dom.Text;
+import org.xwalk.core.XWalkView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,8 +67,29 @@ public class MainActivity extends AppCompatActivity {
         hotspot_txt = (TextView) findViewById(R.id.hotspot_txt);
 
 
+//        int id = radioGroup.getCheckedRadioButtonId(); // 리턴값은 선택된 라디오버튼의 id값
+//        RadioButton radioButton =(RadioButton)findViewById(id);
+//
+//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                if(radioButton.getText()== "Snapshot") {
+//                    snapshot=true;
+//                    stream = false;
+//                }
+//                else if(radioButton.getText()=="Streaming") {
+//                    stream=true;
+//                    snapshot=false;
+//                }
+//            }
+//        });
+
+       ip_array.add("192.168.156.137");
+        ip_array.add("192.168.134.137");
+        ip_array.add("192.168.161.137");
+        ip_array.add("192.168.0.1");
         ip_array.add("naver.com");
-        ip_array.add("192.168.134.137:8091/?action=stream");
+
 
         // 어댑터 객체 생성
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice,ip_array);
@@ -91,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 url = url_edit.getText().toString();
 
                 if(url == "null")
-                    Toast.makeText(getApplicationContext(),"url을 입력하세요",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"ip를 입력하세요",Toast.LENGTH_SHORT).show();
                 else {
 
                     String edit_text = url_edit.getText().toString(); // editText창에 입력된 값 얻기
@@ -107,7 +131,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         hotspot_txt.setMovementMethod(new ScrollingMovementMethod());
+
         ip_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,21 +143,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent url_intent;
-//                url = url_edit.getText().toString(); // or url_edit.getText().toString(); 이건 null일 때  error 발생
-//
-//                if(url == "null")
-//                    Toast.makeText(getApplicationContext(),"url을 입력하세요",Toast.LENGTH_SHORT).show();
-//                else {
-//                    url_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"+url));
-//                    startActivity(url_intent);
-//                }
-//            }
-//        });
+
     }
     private class JsoupAsyncTask extends AsyncTask<Void, Void, Void>{ // 웹 파싱 클래스 생성
 
@@ -145,10 +158,10 @@ public class MainActivity extends AppCompatActivity {
             try{
                 Document doc = (Document) Jsoup.connect(html_url).header("User-Agent","Mozilla/5.0").get(); // 파싱하고 싶은 페이지 링크정보 get
 
-                String h1 = doc.select("h1").text(); // h1태그의 내용만 추출
+//                String h1 = doc.select("h1").text(); // h1태그의 내용만 추출
                 String h2 = doc.select("h2").text(); // 1번째 인덱스에 위치한 h2태그의 내용만 추출
 
-                Elements links = doc.select("p"); // select: 원하는 부분 파싱
+//                Elements links = doc.select("p"); // select: 원하는 부분 파싱
 
                 html_content = h2;
 

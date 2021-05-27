@@ -11,12 +11,18 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 
 
+import org.xwalk.core.XWalkPreferences;
+import org.xwalk.core.XWalkView;
+
 import java.util.function.IntUnaryOperator;
 
 public class Web_Activity extends AppCompatActivity {
 
     WebView web;
     Button back_button;
+    String url="";
+    String html="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +35,19 @@ public class Web_Activity extends AppCompatActivity {
         web.setWebViewClient(new MyWebviewClient());
         WebSettings webSet = web.getSettings();
         webSet.setBuiltInZoomControls(true);
+        webSet.setLoadWithOverviewMode(true);
+        webSet.setUseWideViewPort(true);
+        webSet.setJavaScriptEnabled(true);
 
         Intent web_intent = getIntent();
-        String url=web_intent.getExtras().getString("url");
+        String ip=web_intent.getExtras().getString("url");
 
-        web.loadUrl("http://"+url);
 
+        url = "<img src="+"'http://"+ip+"/stream/video.mjpeg'/></div></body></html>"; // or port number : 8080
+        html ="<html><head><style type='text/css'>body{margin:auto auto;text-align:center;} img{width:100%25;} div{overflow: hidden;} </style></head><body><div>";
+        web.loadData(html+url,"text/html",  "UTF-8");
+
+//        web.loadUrl("http://"+ip+":8091/?action=stream");
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +55,8 @@ public class Web_Activity extends AppCompatActivity {
             }
         });
     }
+
+
 
     class MyWebviewClient extends WebViewClient {  // 웹 뷰를 쓰기 위한 클래스 생성
         @Override

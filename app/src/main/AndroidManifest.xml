@@ -9,27 +9,38 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/backpack"
+        android:label="Ras Pi streaming"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyIPApplication0503_1">
-        <activity android:name=".List_Activity"
-            android:label="recent url or ip"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" ></activity>
+        android:theme="@style/Theme.MyIPApplication0503_1"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        >
+
+
+        <activity
+            android:name=".Launch_Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+
+        </activity>
+
         <activity
             android:name=".Web_Activity"
             android:label="STREAMING VIEW"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
     </application>
 
 </manifest>
