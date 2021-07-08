@@ -83,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-
-       ip_array.add("192.168.156.137");
+    
+        // 디버깅용
+       ip_array.add("192.168.156.137"); 
         ip_array.add("192.168.134.137");
         ip_array.add("192.168.161.137");
         ip_array.add("192.168.0.1");
